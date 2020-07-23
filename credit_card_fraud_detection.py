@@ -19,32 +19,32 @@ from matplotlib import gridspec
 path ="/content/gdrive/My Drive/creditcard.csv"
 data = pd.read_csv(path)
 
-data.head()
+print(data.shape)  # describe shape of dataset
+print(data.describe()) # describe dataset
 
-print(data.shape)
-print(data.describe())
-
-fraud = data[data['Class'] == 1] 
-valid = data[data['Class'] == 0] 
-outlierFraction = len(fraud)/float(len(valid)) 
-print(outlierFraction) 
 print('Fraud Cases: {}'.format(len(data[data['Class'] == 1]))) 
 print('Valid Transactions: {}'.format(len(data[data['Class'] == 0])))
 
+fraud = data[data['Class'] == 1]  # rows whose field 'Class'=1 is copied to fraud
+valid = data[data['Class'] == 0]  # rows whose field 'Class'=0 is copied to valid
+outlierFraction = len(fraud)/float(len(valid))  # checking the ratio differences between the two classes
+print(outlierFraction)  
+
 # dividing the X and the Y from the dataset 
-X = data.drop(['Class'], axis = 1) 
-Y = data["Class"] 
+Y = data["Class"] # sepating the result column
+X = data.drop(['Class'], axis = 1)  # removing it from the dataframe data
+
 print(X.shape) 
 print(Y.shape) 
-# getting just the values for the sake of processing  
-# (its a numpy array with no columns) 
-xData = X.values 
-yData = Y.values
+
+# getting just the values for the sake of processing (its a numpy array with no columns) 
+
+xData = X.values # removing column headers of X 
+yData = Y.values # removing column headers of Y
 
 from sklearn.model_selection import train_test_split 
 # Split the data into training and testing sets 
-xTrain, xTest, yTrain, yTest = train_test_split( 
-        xData, yData, test_size = 0.2, random_state = 42)
+xTrain, xTest, yTrain, yTest = train_test_split(xData, yData, test_size = 0.2, random_state = 42) # train:test = 70:30
 
 # Building the Random Forest Classifier (RANDOM FOREST) 
 from sklearn.ensemble import RandomForestClassifier 
