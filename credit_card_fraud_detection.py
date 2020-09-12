@@ -59,8 +59,6 @@ yPred = rfc.predict(xTest)
 # scoring in anything 
 from sklearn.metrics import accuracy_score  
 from sklearn.metrics import precision_score
-from sklearn.metrics import matthews_corrcoef 
-
   
 n_outliers = len(fraud) 
 n_errors = (yPred != yTest).sum() 
@@ -71,7 +69,5 @@ print("The accuracy is {}".format(acc))
   
 prec = precision_score(yTest, yPred) 
 print("The precision is {}".format(prec)) 
-  
-MCC = matthews_corrcoef(yTest, yPred) 
-print("The Matthews correlation coefficient is{}".format(MCC))
+
 
